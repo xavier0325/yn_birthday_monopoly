@@ -20,7 +20,7 @@ class SoundManager {
       birthday: './sounds/birthday.mp3', // 生日格子音效
       tax: './sounds/tax.mp3',        // 支付税金音效
       win: './sounds/win.mp3',        // 游戏胜利音效
-      lose: './sounds/lose.mp3',      // 游戏失败音效
+      lose: './sounds/win.mp3',      // 游戏失败音效
       click: './sounds/click.mp3',    // 按钮点击音效
     };
 
@@ -33,7 +33,7 @@ class SoundManager {
 
   private initBGM() {
     // 背景音乐：欢快的生日主题音乐
-    this.bgm = new Audio('/sounds/bgm.mp3');
+    this.bgm = new Audio('./sounds/bgm.mp3');
     this.bgm.loop = true;  // 循环播放
     this.bgm.volume = 0.3; // 设置背景音乐音量为30%
   }

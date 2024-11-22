@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { visualizer } from 'rollup-plugin-visualizer'
 import viteCompression from 'vite-plugin-compression'
-import { VitePWA } from 'vite-plugin-pwa'
 import legacy from '@vitejs/plugin-legacy'
 
 // https://vitejs.dev/config/
@@ -23,28 +22,6 @@ export default defineConfig({
       threshold: 10240,
       algorithm: 'gzip',
       ext: '.gz',
-    }),
-    // PWA 支持
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'avatar*.png', 'sounds/*.mp3'],
-      manifest: {
-        name: '芋泥生日快乐大富翁',
-        short_name: '生日大富翁',
-        description: '一个特别的生日礼物',
-        theme_color: '#FF69B4',
-        icons: [
-          {
-            src: 'favicon.svg',
-            sizes: '192x192',
-            type: 'image/svg+xml',
-          },
-        ],
-      },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,mp3}'],
-        cleanupOutdatedCaches: true,
-      },
     }),
     // 兼容旧版浏览器
     legacy({
