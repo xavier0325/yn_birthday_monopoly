@@ -36,7 +36,7 @@
                    class="player-name-item"
               >
                 <div class="player-avatar"
-                     :style="{ backgroundImage: `url(/avatar${index + 1}.png)` }"
+                     :style="{ backgroundImage: `url(./avatar${index + 1}.png)` }"
                 />
                 <n-input
                   v-model:value="settings.playerNames[index]"
@@ -55,65 +55,67 @@
       <n-tab-pane name="cells" tab="格子设置">
         <div class="settings-section">
           <div class="cell-types">
-            <div v-for="type in cellTypes" :key="type.key" class="cell-type-item">
-              <div class="cell-type-header">
-                <n-icon size="24">
-                  <component :is="type.icon" />
-                </n-icon>
-                <span class="cell-type-name">{{ type.name }}</span>
-              </div>
-              <div class="cell-type-settings">
-                <n-input-number
-                  v-model:value="settings.cellCounts[type.key]"
-                  :min="type.min"
-                  :max="type.max"
-                  size="medium"
-                  placeholder="数量"
-                >
-                  <template #prefix>数量</template>
-                </n-input-number>
-                <template v-if="type.key === 'property'">
+            <div class="cell-types-scroll">
+              <div v-for="type in cellTypes" :key="type.key" class="cell-type-item">
+                <div class="cell-type-header">
+                  <n-icon size="24">
+                    <component :is="type.icon" />
+                  </n-icon>
+                  <span class="cell-type-name">{{ type.name }}</span>
+                </div>
+                <div class="cell-type-settings">
                   <n-input-number
-                    v-model:value="settings.propertyMinPrice"
-                    :min="1000"
-                    :max="settings.propertyMaxPrice"
-                    :step="500"
+                    v-model:value="settings.cellCounts[type.key]"
+                    :min="type.min"
+                    :max="type.max"
                     size="medium"
+                    placeholder="数量"
                   >
-                    <template #prefix>最低价</template>
+                    <template #prefix>数量</template>
                   </n-input-number>
-                  <n-input-number
-                    v-model:value="settings.propertyMaxPrice"
-                    :min="settings.propertyMinPrice"
-                    :max="50000"
-                    :step="500"
-                    size="medium"
-                  >
-                    <template #prefix>最高价</template>
-                  </n-input-number>
-                </template>
-                <template v-if="type.key === 'tax'">
-                  <n-input-number
-                    v-model:value="settings.taxAmount"
-                    :min="100"
-                    :max="5000"
-                    :step="100"
-                    size="medium"
-                  >
-                    <template #prefix>税金</template>
-                  </n-input-number>
-                </template>
-                <template v-if="type.key === 'birthday'">
-                  <n-input-number
-                    v-model:value="settings.birthdayBonus"
-                    :min="500"
-                    :max="5000"
-                    :step="100"
-                    size="medium"
-                  >
-                    <template #prefix>奖励</template>
-                  </n-input-number>
-                </template>
+                  <template v-if="type.key === 'property'">
+                    <n-input-number
+                      v-model:value="settings.propertyMinPrice"
+                      :min="1000"
+                      :max="settings.propertyMaxPrice"
+                      :step="500"
+                      size="medium"
+                    >
+                      <template #prefix>最低价</template>
+                    </n-input-number>
+                    <n-input-number
+                      v-model:value="settings.propertyMaxPrice"
+                      :min="settings.propertyMinPrice"
+                      :max="50000"
+                      :step="500"
+                      size="medium"
+                    >
+                      <template #prefix>最高价</template>
+                    </n-input-number>
+                  </template>
+                  <template v-if="type.key === 'tax'">
+                    <n-input-number
+                      v-model:value="settings.taxAmount"
+                      :min="100"
+                      :max="5000"
+                      :step="100"
+                      size="medium"
+                    >
+                      <template #prefix>税金</template>
+                    </n-input-number>
+                  </template>
+                  <template v-if="type.key === 'birthday'">
+                    <n-input-number
+                      v-model:value="settings.birthdayBonus"
+                      :min="500"
+                      :max="5000"
+                      :step="100"
+                      size="medium"
+                    >
+                      <template #prefix>奖励</template>
+                    </n-input-number>
+                  </template>
+                </div>
               </div>
             </div>
           </div>
@@ -533,11 +535,59 @@ const repeatableCardsCount = computed(() =>
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: @spacing-md;
+  height: 400px; // 固定高度
+  position: relative;
+  border-radius: @border-radius-lg;
+  background: rgba(255, 255, 255, 0.05);
+  
+  .cell-types-scroll {
+    overflow-y: auto;
+    height: 100%;
+    padding: @spacing-sm;
+    padding-bottom: @spacing-xl;
+
+    // 滚动条样式
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(
+        to bottom,
+        fade(@primary-light, 60%),
+        fade(@secondary-light, 60%)
+      );
+      border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(
+          to bottom,
+          @primary-light,
+          @secondary-light
+        );
+        border-width: 1px;
+      }
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  }
 
   .cell-type-item {
-    padding: @spacing-md;
     background: rgba(255, 255, 255, 0.2);
     border-radius: @border-radius-md;
+    padding: @spacing-md;
     display: flex;
     flex-direction: column;
     gap: @spacing-sm;
@@ -770,7 +820,11 @@ const repeatableCardsCount = computed(() =>
   }
 
   .cell-types {
-    grid-template-columns: 1fr;
+    height: 350px; // 移动端稍微降低高度
+    
+    .cell-types-scroll {
+      grid-template-columns: 1fr;
+    }
   }
 
   .chance-cards {

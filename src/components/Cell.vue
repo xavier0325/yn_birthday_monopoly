@@ -28,7 +28,7 @@
                 <div 
                   class="owner-avatar"
                   :style="{
-                    backgroundImage: `url(/avatar${cell.owner + 1}.png)`,
+                    backgroundImage: `url(./avatar${cell.owner + 1}.png)`,
                     borderColor: getOwnerColor(cell.owner)
                   }"
                 />
@@ -59,7 +59,7 @@
           :class="{ 'current-player': store.currentPlayer === player.id }"
           :data-player-id="player.id"
           :style="{ 
-            backgroundImage: `url(/avatar${player.id + 1}.png)`,
+            backgroundImage: `url(./avatar${player.id + 1}.png)`,
             borderColor: player.color,
             '--glow-color': player.color,
           }"
@@ -146,7 +146,7 @@ const getCellStyle = (cell: Cell) => {
 
 // 判断是否是左右两侧的格子
 const isSideCell = (id: number) => {
-  return (id >= 9 && id < 15) || (id >= 25 && id < 31);
+  return (id >= 9 && id <= 15) || (id >= 25 && id <= 31);
 };
 </script>
 
