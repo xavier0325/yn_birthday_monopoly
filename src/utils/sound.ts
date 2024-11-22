@@ -12,16 +12,16 @@ class SoundManager {
   private initSounds() {
     // 游戏音效素材说明
     const soundFiles = {
-      roll: '/sounds/roll.mp3',      // 骰子滚动音效
-      move: '/sounds/move.mp3',      // 棋子移动音效
-      buy: '/sounds/buy.mp3',        // 购买地产音效
-      money: '/sounds/money.mp3',    // 金钱收入音效
-      chance: '/sounds/chance.mp3',  // 抽取机会卡音效
-      birthday: '/sounds/birthday.mp3', // 生日格子音效
-      tax: '/sounds/tax.mp3',        // 支付税金音效
-      win: '/sounds/win.mp3',        // 游戏胜利音效
-      lose: '/sounds/lose.mp3',      // 游戏失败音效
-      click: '/sounds/click.mp3',    // 按钮点击音效
+      roll: './sounds/roll.mp3',      // 骰子滚动音效
+      move: './sounds/move.mp3',      // 棋子移动音效
+      buy: './sounds/buy.mp3',        // 购买地产音效
+      money: './sounds/money.mp3',    // 金钱收入音效
+      chance: './sounds/chance.mp3',  // 抽取机会卡音效
+      birthday: './sounds/birthday.mp3', // 生日格子音效
+      tax: './sounds/tax.mp3',        // 支付税金音效
+      win: './sounds/win.mp3',        // 游戏胜利音效
+      lose: './sounds/lose.mp3',      // 游戏失败音效
+      click: './sounds/click.mp3',    // 按钮点击音效
     };
 
     Object.entries(soundFiles).forEach(([key, path]) => {
