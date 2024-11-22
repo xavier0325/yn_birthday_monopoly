@@ -82,7 +82,7 @@
                             <div
                               class="player-avatar"
                               :style="{
-                                backgroundImage: `url(/avatar${player.id + 1}.png)`,
+                                backgroundImage: `url(./avatar${player.id + 1}.png)`,
                                 borderColor: player.color,
                                 boxShadow: `0 2px 8px ${player.color}80`
                               }"

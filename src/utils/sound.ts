@@ -1,3 +1,13 @@
+// 在文件顶部添加这个函数来获取正确的资源路径
+function getAssetPath(path: string): string {
+  // 使用 import.meta.env.BASE_URL 获取基础路径
+  const base = import.meta.env.BASE_URL || '/';
+  // 确保路径以 / 开头
+  const assetPath = path.startsWith('./') ? path.slice(2) : path;
+  // 组合基础路径和资源路径
+  return `${base}${assetPath}`;
+}
+
 class SoundManager {
   private sounds: { [key: string]: HTMLAudioElement } = {};
   private bgm: HTMLAudioElement | null = null;
@@ -12,16 +22,17 @@ class SoundManager {
   private initSounds() {
     // 游戏音效素材说明
     const soundFiles = {
-      roll: './sounds/roll.mp3',      // 骰子滚动音效
-      move: './sounds/move.mp3',      // 棋子移动音效
-      buy: './sounds/buy.mp3',        // 购买地产音效
-      money: './sounds/money.mp3',    // 金钱收入音效
-      chance: './sounds/chance.mp3',  // 抽取机会卡音效
-      birthday: './sounds/birthday.mp3', // 生日格子音效
-      tax: './sounds/tax.mp3',        // 支付税金音效
-      win: './sounds/win.mp3',        // 游戏胜利音效
-      lose: './sounds/win.mp3',      // 游戏失败音效
-      click: './sounds/click.mp3',    // 按钮点击音效
+      // 使用 getAssetPath 处理所有音频文件路径
+      roll: getAssetPath('./sounds/roll.mp3'),
+      move: getAssetPath('./sounds/move.mp3'),
+      buy: getAssetPath('./sounds/buy.mp3'),
+      money: getAssetPath('./sounds/money.mp3'),
+      chance: getAssetPath('./sounds/chance.mp3'),
+      birthday: getAssetPath('./sounds/birthday.mp3'),
+      tax: getAssetPath('./sounds/tax.mp3'),
+      win: getAssetPath('./sounds/win.mp3'),
+      lose: getAssetPath('./sounds/win.mp3'),
+      click: getAssetPath('./sounds/click.mp3'),
     };
 
     Object.entries(soundFiles).forEach(([key, path]) => {
@@ -32,8 +43,8 @@ class SoundManager {
   }
 
   private initBGM() {
-    // 背景音乐：欢快的生日主题音乐
-    this.bgm = new Audio('./sounds/bgm.mp3');
+    // 使用 getAssetPath 处理背景音乐路径
+    this.bgm = new Audio(getAssetPath('./sounds/bgm.mp3'));
     this.bgm.loop = true;  // 循环播放
     this.bgm.volume = 0.3; // 设置背景音乐音量为30%
   }
